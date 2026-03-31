@@ -1,0 +1,238 @@
+.nav {
+    width: 100%;
+    padding: 16px;
+    border-bottom: 1px solid #f5f5f5;
+    box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+}
+
+.nav-content {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 20px;
+    flex-wrap: wrap;
+}
+
+
+.search-input {
+    padding: 16px 40px;
+    background-image: url('../assets/icons/Search.png');
+    background-repeat: no-repeat;
+    background-position: 10px center;
+    background-size: 20px;
+    width: 668px;
+    border: none;
+    background-color: #f5f5f5;
+    border-radius: 18px;
+}
+
+.menu {
+    display: flex;
+    align-items: center;
+    gap: 32px;
+
+}
+
+a {
+    text-decoration: none;
+    color: #000000;
+}
+
+.menu a+a {
+    color: #b3b3b3;
+}
+
+.section-container {
+    padding: 48px 160px;
+    min-height: 1000px;
+}
+
+.section-menu {
+    display: flex;
+    gap: 32px;
+    margin-bottom: 32px;
+}
+
+.section-menu p {
+    color: #b3b3b3;
+}
+
+.section-menu .choose {
+    color: #000000;
+    padding: 4px;
+    font-weight: 600;
+    position: relative;
+}
+
+.section-menu .choose::after {
+    position: absolute;
+    content: '';
+    bottom: 0;
+    left: 0;
+    background-color: #000000;
+    height: 2px;
+    width: 100%;
+}
+
+.lesson-card {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 20px;
+    align-items: stretch;
+}
+
+.card {
+    height: 100%;
+    border: 1px solid #DADADA;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    border-radius: 18px;
+    position: relative;
+}
+
+.card-header {
+    font-size: 24px;
+}
+
+.card-body {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 20px;
+}
+
+.session {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.empty-lesson {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex: 1;
+}
+
+.card-footer {
+    text-align: center;
+    margin-top: auto;
+}
+
+.footer-container {
+    padding: 104px 160px;
+    background-color: #000000;
+    color: #ffff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 24px;
+
+}
+
+
+.content {
+    display: grid;
+    grid-template-columns: 1.5fr 1fr 1fr;
+    gap: 80px;
+    max-width: 1200px;
+    margin-bottom: 24px;
+}
+
+.col-1 {
+    max-width: 400px;
+    line-height: 1.6;
+    color: #cfcfcf;
+}
+
+
+.col-2,
+.col-3 {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+
+}
+
+.col-2 a,
+.col-3 a {
+    color: #cfcfcf;
+    font-size: 14px;
+}
+
+.header-col {
+    font-size: 16px;
+}
+
+.social {
+    display: flex;
+    gap: 36px;
+}
+
+
+@media (max-width: 1024px) {
+
+    .section-container {
+        padding: 40px 60px;
+    }
+
+    .lesson-card {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .nav-content {
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+    }
+
+    .search-input {
+        width: 100%;
+        max-width: 500px;
+    }
+
+    .content {
+        gap: 40px;
+        grid-template-columns: 1fr 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+
+    .section-container {
+        padding: 24px 16px;
+    }
+
+    .lesson-card {
+        grid-template-columns: 1fr;
+    }
+
+    .nav-content {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+    }
+
+    .search-input {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .menu {
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .content {
+        grid-template-columns: 1fr;
+        text-align: center;
+    }
+
+    .social {
+        justify-content: center;
+    }
+}
