@@ -75,6 +75,11 @@ input:focus {
     color: #3b82f6;
 }
 
+.error {
+    font-size: 12px;
+    color: red;
+}
+
 /* Button */
 button {
     width: 100%;

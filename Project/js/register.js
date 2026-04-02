@@ -1,4 +1,5 @@
 let users = JSON.parse(localStorage.getItem('users')) || [];
+
 const midleNameInput = document.getElementById('midle-name');
 const nameInput = document.getElementById('name');
 const emailInput = document.getElementById('email');
@@ -8,10 +9,16 @@ const errorMidleName = document.getElementById('error-midle-name');
 const errorName = document.getElementById('error-name');
 const errorEmail = document.getElementById('error-email');
 const errorPassword = document.getElementById('error-password');
+const toastBox = document.getElementById('toastBox');
 
 function isValidEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
+}
+
+function isValidPassword(password) {
+    const regex = /^\S{8}$/;
+    return regex.test(password)
 }
 
 function clearError() {
@@ -19,21 +26,21 @@ function clearError() {
     errorName.textContent = '';
     errorEmail.textContent = '';
     errorPassword.textContent = '';
+    midleNameInput.style.border = "";
+    nameInput.style.border = "";
+    emailInput.style.border = "";
+    passwordInput.style.border = "";
 }
 
-function resetForm() {
-    midleNameInput.value = '';
-    midleNameInput.value = '';
-    emailInput.value = '';
-    passwordInput.value = '';
-}
 
 function validate() {
     let midleName = midleNameInput.value.trim();
-    let name = midleNameInput.value.trim();
+    let name = nameInput.value.trim();
     let email = emailInput.value.trim();
     let password = passwordInput.value;
 
+    clearError();
+    
     let isValid = true;
     if (!midleName) {
         errorMidleName.textContent = 'Không được để trống';
@@ -57,26 +64,34 @@ function validate() {
         isValid = false;
     }
 
+    const isDuplicateEmail = users.some(u => u.email === email);
+    if (isDuplicateEmail) {
+        errorEmail.textContent = 'Email đã tồn tại. Vui lòng sử dụng email khác';
+        emailInput.style.border = "2px solid red";
+        isValid = false;
+    }
+
     if (!password) {
         errorPassword.textContent = "Không được để trống";
         passwordInput.style.border = "2px solid red";
         isValid = false;
-    } else if (password.length < 8) {
-        errorPassword.textContent = 'Mật khẩu phải có độ dài tối thiếu 8 kí tự'
+    } else if (!isValidPassword(password)) {
+        errorPassword.textContent = 'Mật khẩu phải có độ dài tối thiếu 8 kí tự và không được chứa khoảng trắng';
         passwordInput.style.border = "2px solid red";
         isValid = false;
     }
 
+
+
     if (!checkBox.checked) {
-        alert("Hãy đồng ý với điều khoản và dịch vụ");
+        showToast('Hãy đồng ý với chính sách và điều khoản')
         isValid = false;
-    } 
+    }
 
     if (!isValid) {
         return null;
     }
 
-    clearError();
     return {
         midleName, name, email, password
     }
@@ -88,6 +103,7 @@ function createAccount() {
     if (!data) return;
 
     let newAccount = {
+        id: Date.now(),
         first_name: data.midleName,
         last_name: data.name,
         email: data.email,
@@ -99,4 +115,17 @@ function createAccount() {
 
     window.location.href = './login.html';
 
+}
+
+
+
+function showToast(msg) {
+    const toast = document.createElement('div');
+    toast.className = 'toast';
+    toast.textContent = msg;
+    toastBox.appendChild(toast);
+
+    setTimeout(() => {
+        toast.remove();
+    }, 3000);
 }
