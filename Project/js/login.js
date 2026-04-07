@@ -1,6 +1,5 @@
 let users = JSON.parse(localStorage.getItem('users')) || [];
 
-
 const emailInput = document.getElementById('email');
 const passwordInput = document.getElementById('password');
 const rememberBox = document.getElementById('remember-box');

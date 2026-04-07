@@ -9,29 +9,12 @@ const errorMidleName = document.getElementById('error-midle-name');
 const errorName = document.getElementById('error-name');
 const errorEmail = document.getElementById('error-email');
 const errorPassword = document.getElementById('error-password');
-const toastBox = document.getElementById('toastBox');
+const notCheckBox = document.getElementById('notCheckBox');
 
 function isValidEmail(email) {
     const regex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     return regex.test(email);
 }
-
-function isValidPassword(password) {
-    const regex = /^\S{8}$/;
-    return regex.test(password)
-}
-
-function clearError() {
-    errorMidleName.textContent = '';
-    errorName.textContent = '';
-    errorEmail.textContent = '';
-    errorPassword.textContent = '';
-    midleNameInput.style.border = "";
-    nameInput.style.border = "";
-    emailInput.style.border = "";
-    passwordInput.style.border = "";
-}
-
 
 function validate() {
     let midleName = midleNameInput.value.trim();
@@ -39,8 +22,6 @@ function validate() {
     let email = emailInput.value.trim();
     let password = passwordInput.value;
 
-    clearError();
-    
     let isValid = true;
     if (!midleName) {
         errorMidleName.textContent = 'Không được để trống';
@@ -75,8 +56,8 @@ function validate() {
         errorPassword.textContent = "Không được để trống";
         passwordInput.style.border = "2px solid red";
         isValid = false;
-    } else if (!isValidPassword(password)) {
-        errorPassword.textContent = 'Mật khẩu phải có độ dài tối thiếu 8 kí tự và không được chứa khoảng trắng';
+    } else if (password.length < 8) {
+        errorPassword.textContent = 'Mật khẩu phải có độ dài tối thiếu 8 kí tự';
         passwordInput.style.border = "2px solid red";
         isValid = false;
     }
@@ -84,7 +65,7 @@ function validate() {
 
 
     if (!checkBox.checked) {
-        showToast('Hãy đồng ý với chính sách và điều khoản')
+        notCheckBox.textContent = 'Hãy đồng ý với chính sách và điều khoản';
         isValid = false;
     }
 
@@ -97,6 +78,30 @@ function validate() {
     }
 
 }
+
+midleNameInput.addEventListener('input', () => {
+    errorMidleName.textContent = '';
+    midleNameInput.style.border = "";
+});
+
+nameInput.addEventListener('input', () => {
+    errorName.textContent = '';
+    nameInput.style.border = "";
+});
+
+emailInput.addEventListener('input', () => {
+    errorEmail.textContent = '';
+    emailInput.style.border = "";
+});
+
+passwordInput.addEventListener('input', () => {
+    errorPassword.textContent = '';
+    passwordInput.style.border = "";
+});
+
+checkBox.addEventListener('change', () => {
+    notCheckBox.textContent = '';
+});
 
 function createAccount() {
     const data = validate();
@@ -117,15 +122,3 @@ function createAccount() {
 
 }
 
-
-
-function showToast(msg) {
-    const toast = document.createElement('div');
-    toast.className = 'toast';
-    toast.textContent = msg;
-    toastBox.appendChild(toast);
-
-    setTimeout(() => {
-        toast.remove();
-    }, 3000);
-}
