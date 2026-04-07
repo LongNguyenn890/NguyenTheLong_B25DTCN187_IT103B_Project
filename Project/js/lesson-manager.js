@@ -424,7 +424,8 @@ function renderFilterSelect() {
 
 }
 
-let isSort = false
+let isSortName = false;
+let isSortTime = false;
 
 function filterLesson(list) {
     const subjecId = filterValue.value;
@@ -434,16 +435,21 @@ function filterLesson(list) {
 }
 
 function sortLesson(list) {
-    if (!isSort) return list;
-    return list.sort((a, b) => a.name.localeCompare(b.name));
+    if (!isSortName) return list;
+    return [...list].sort((a, b) => a.name.localeCompare(b.name));
 }
 
+function sortTime(list) {
+    if (!isSortTime) return list;
+    return [...list].sort((a, b) => a.time - b.time);
+}
 
 function applyFilter() {
     let result = [...lessons];
 
     result = filterLesson(result);
     result = sortLesson(result);
+    result = sortTime(result);
 
     if (result.length === 0) {
         const noneText = document.getElementById('none-text');
@@ -459,8 +465,15 @@ function applyFilter() {
 }
 
 
-function toggleSort() {
-    isSort = !isSort;
+function toggleSortName() {
+    isSortName = !isSortName;
+    isSortTime = false;
+    applyFilter();
+}
+
+function toggleSortTime() {
+    isSortTime = !isSortTime;
+    isSortName = false;
     applyFilter();
 }
 
